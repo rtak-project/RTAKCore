@@ -1,0 +1,26 @@
+[Unit]
+Description=RTAK's distributed currency daemon
+After=network.target
+
+[Service]
+User=rtak
+Group=rtak
+
+Type=forking
+PIDFile=/var/lib/rtakd/rtakd.pid
+
+ExecStart=/usr/bin/rtakd -daemon -pid=/var/lib/rtakd/rtakd.pid \
+          -conf=/etc/rtak/rtak.conf -datadir=/var/lib/rtakd
+
+ExecStop=-/usr/bin/rtak-cli -conf=/etc/rtak/rtak.conf \
+         -datadir=/var/lib/rtakd stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

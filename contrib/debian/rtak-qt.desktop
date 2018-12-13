@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=RTAK
+Comment=RTAK P2P Cryptocurrency
+Comment[fr]=RTAK, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=RTAK, eşten eşe kriptografik sanal para birimi
+Exec=rtak-qt %u
+Terminal=false
+Type=Application
+Icon=rtak128
+MimeType=x-scheme-handler/rtak;
+Categories=Office;Finance;

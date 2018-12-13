@@ -1,0 +1,26 @@
+# /etc/conf.d/rtakd: config file for /etc/init.d/rtakd
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/rtak/rtak.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/rtakd"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/rtakd.pid"
+
+# Where to write rtakd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/rtakd"
+
+# User and group to own rtakd process
+#BITCOIND_USER="rtak"
+#BITCOIND_GROUP="rtak"
+
+# Path to rtakd executable
+#BITCOIND_BIN="/usr/bin/rtakd"
+
+# Nice value to run rtakd under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""
