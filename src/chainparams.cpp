@@ -284,18 +284,6 @@ public:
         nEnforceNewSporkKey = 1521604800; //!> Sporks signed after Wednesday, March 21, 2018 4:00:00 AM GMT must use the new spork key
         nRejectOldSporkKey = 1522454400; //!> Reject old spork key after Saturday, March 31, 2018 12:00:00 AM GMT
 
-        //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1454124731;
-        genesis.nNonce = 2649451;
-
-        hashGenesisBlock = genesis.GetHash();
-        while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
-            genesis.nNonce ++;
-        }
-
-        std::cout << genesis.nNonce << std::endl;
-        std::cout << genesis.GetHash().GetHex() << std::endl;
-
         assert(hashGenesisBlock == uint256("0x0000028762b15362c6b00d50b8def8436d956fc5a2de700563b90aa56538cc4e"));
 
         //vSeeds.push_back(CDNSSeedData("dnsseed1", ""));
