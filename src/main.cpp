@@ -3635,8 +3635,8 @@ CBlockIndex* AddToBlockIndex(const CBlock& block)
         }
 
         // ppcoin: compute stake modifier
-        uint64_t nStakeModifier = 0;
-        bool fGeneratedStakeModifier = false;
+        //uint64_t nStakeModifier = 0;
+        //bool fGeneratedStakeModifier = false;
         if (!ComputeNextStakeModifier(pindexNew->pprev, nStakeModifier, fGeneratedStakeModifier))
             LogPrintf("AddToBlockIndex() : ComputeNextStakeModifier() failed \n");
         pindexNew->SetStakeModifier(nStakeModifier, fGeneratedStakeModifier);

@@ -47,6 +47,26 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
     }
 }
 
+bool CheckProof(uint256 hash, unsigned int nBits)
+{
+    bool fNegative;
+    bool fOverflow;
+    uint256 bnTarget;
+
+
+    bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
+
+    // Check range
+    if (fNegative || bnTarget == 0 || fOverflow)
+        return false; //error("CheckProofOfWork() : nBits below minimum work");
+
+    // Check proof of work matches claimed amount
+    if (hash > bnTarget)
+        return false; //error("CheckProofOfWork() : hash doesn't match nBits");
+
+    return true;
+}
+
 //   What makes a good checkpoint block?
 // + Is surrounded by blocks with reasonable timestamps
 //   (no blocks before with a timestamp after, none after with
@@ -164,11 +184,19 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1544709800;
+        genesis.nTime = 1545075106;
         genesis.nBits = 0x1e0ffff0;
         genesis.nNonce = 888019;
 
         hashGenesisBlock = genesis.GetHash();
+
+        while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
+            genesis.nNonce ++;
+        }
+
+        std::cout << genesis.nNonce << std::endl;
+        std::cout << genesis.GetHash().GetHex() << std::endl;
+        std::cout << genesis.hashMerkleRoot.GetHex() << std::endl;
         //printf("hashGenesisBlock = %s\n",hashGenesisBlock.ToString().c_str());
 		    //printf("hashMerkleRoot = %s\n",genesis.hashMerkleRoot.ToString().c_str());
 
