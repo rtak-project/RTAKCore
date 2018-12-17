@@ -288,6 +288,15 @@ public:
         genesis.nTime = 1545075106;
         genesis.nNonce = 4455501;
 
+        while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
+            genesis.nNonce ++;
+        }
+
+        std::cout << "testNet" << std::endl;
+        std::cout << genesis.nNonce << std::endl;
+        std::cout << genesis.GetHash().GetHex() << std::endl;
+        std::cout << genesis.hashMerkleRoot.GetHex() << std::endl;
+
         assert(hashGenesisBlock == uint256("0x0000068c2bcf20eae16eb26e11c92a4b1c8b4302df22340eff568ea6fc546bcc"));
 
         //vSeeds.push_back(CDNSSeedData("dnsseed1", ""));
@@ -348,13 +357,21 @@ public:
         nTargetTimespan = 24 * 60 * 60; // RTAK: 1 day
         nTargetSpacing = 2 * 60;        // RTAK: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
-        genesis.nTime = 1454124731;
+        genesis.nTime = 1545075106;
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 12345;
 
         hashGenesisBlock = genesis.GetHash();
-        //printf("regtest: hashGenesisBlock = %s\n",hashGenesisBlock.ToString().c_str());
         nDefaultPort = 50333;
+
+        while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
+            genesis.nNonce ++;
+        }
+
+        std::cout << "regNet" << std::endl;
+        std::cout << genesis.nNonce << std::endl;
+        std::cout << genesis.GetHash().GetHex() << std::endl;
+        std::cout << genesis.hashMerkleRoot.GetHex() << std::endl;
         assert(hashGenesisBlock == uint256("0x1450054c37aba849f7ba2bc145c92afb878a32997f950e170f03f37efbea101c"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
