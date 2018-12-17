@@ -286,7 +286,7 @@ public:
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1454124731;
-        genesis.nNonce = 2402015;
+        genesis.nNonce = 2649451;
 
         hashGenesisBlock = genesis.GetHash();
         while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
@@ -295,8 +295,8 @@ public:
 
         std::cout << genesis.nNonce << std::endl;
         std::cout << genesis.GetHash().GetHex() << std::endl;
-        
-        assert(hashGenesisBlock == uint256("0xf6986aa486b341ae149d9f928e7ddb69692d2a52df97fcc8597de477ac6f0a34"));
+
+        assert(hashGenesisBlock == uint256("0x0000028762b15362c6b00d50b8def8436d956fc5a2de700563b90aa56538cc4e"));
 
         //vSeeds.push_back(CDNSSeedData("dnsseed1", ""));
         vSeeds.clear();
