@@ -74,10 +74,10 @@ bool CheckProof(uint256 hash, unsigned int nBits)
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x3e9f71b79985b00b03b9daac014a30b312b2b3395e4ba139783cd80b57cb090c"));
+    (0, uint256("0x000005a323fa7356164266bf9706fea579947a0fef4b8a5b8e9f7ccd0f619741"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1544709800, // * UNIX timestamp of last checkpoint block
+    1545075106, // * UNIX timestamp of last checkpoint block
     0,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     100        // * estimated number of transactions per day after checkpoint
@@ -87,7 +87,7 @@ static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
     boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1544709800,
+    1545075106,
     0,
     250};
 
@@ -95,7 +95,7 @@ static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
     boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataRegtest = {
     &mapCheckpointsRegtest,
-    1544709800,
+    1545075106,
     0,
     100};
 
@@ -145,11 +145,11 @@ public:
         nTargetTimespan = 24 * 60 * 60; // RTAK: 1 day
         nTargetSpacing = 2 * 60;  // RTAK: 2 minute // test
         nMaturity = 20;
-        nMasternodeCountDrift = 5;
+        nMasternodeCountDrift = 2;
         nMaxMoneyOut = 6000000 * COIN;
 
         /** Height or Time Based Activations **/
-        nLastPOWBlock = 350;
+        nLastPOWBlock = 50;
         nModifierUpdateBlock = 615800;
         nZerocoinStartHeight = 201600;
         nZerocoinStartTime = 1508214600; // October 17, 2017 4:30:00 AM
@@ -186,21 +186,11 @@ public:
         genesis.nVersion = 1;
         genesis.nTime = 1545075106;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 888019;
+        genesis.nNonce = 1606092;
 
         hashGenesisBlock = genesis.GetHash();
 
-        while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
-            genesis.nNonce ++;
-        }
-
-        std::cout << genesis.nNonce << std::endl;
-        std::cout << genesis.GetHash().GetHex() << std::endl;
-        std::cout << genesis.hashMerkleRoot.GetHex() << std::endl;
-        //printf("hashGenesisBlock = %s\n",hashGenesisBlock.ToString().c_str());
-		    //printf("hashMerkleRoot = %s\n",genesis.hashMerkleRoot.ToString().c_str());
-
-        assert(hashGenesisBlock == uint256("0x3e9f71b79985b00b03b9daac014a30b312b2b3395e4ba139783cd80b57cb090c"));
+        assert(hashGenesisBlock == uint256("0x000005a323fa7356164266bf9706fea579947a0fef4b8a5b8e9f7ccd0f619741"));
         assert(genesis.hashMerkleRoot == uint256("0xb3604fa55f8e157abb96e4b04faf034c480c9739281e38fe0ffcedc4f7187274"));
 
         vSeeds.push_back(CDNSSeedData("dnsseed1", "37.1.221.94"));
@@ -299,7 +289,13 @@ public:
         genesis.nNonce = 2402015;
 
         hashGenesisBlock = genesis.GetHash();
-        //printf("testnet: hashGenesisBlock = %s\n",hashGenesisBlock.ToString().c_str());
+        while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
+            genesis.nNonce ++;
+        }
+
+        std::cout << genesis.nNonce << std::endl;
+        std::cout << genesis.GetHash().GetHex() << std::endl;
+        
         assert(hashGenesisBlock == uint256("0xf6986aa486b341ae149d9f928e7ddb69692d2a52df97fcc8597de477ac6f0a34"));
 
         //vSeeds.push_back(CDNSSeedData("dnsseed1", ""));
