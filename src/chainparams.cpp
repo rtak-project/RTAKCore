@@ -186,9 +186,9 @@ public:
         genesis.nVersion = 1;
         genesis.nTime = 1545158624;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 1606092;
+        genesis.nNonce = 1764986;
 
-
+        /*
         std::cout << "mainNet" << std::endl;
         while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
             genesis.nNonce ++;
@@ -199,11 +199,11 @@ public:
         std::cout << genesis.GetHash().GetHex() << std::endl;
         std::cout << genesis.hashMerkleRoot.GetHex() << std::endl;
 
-
+        */
         hashGenesisBlock = genesis.GetHash();
 
-        assert(hashGenesisBlock == uint256("0x000005a323fa7356164266bf9706fea579947a0fef4b8a5b8e9f7ccd0f619741"));
-        assert(genesis.hashMerkleRoot == uint256("0xb3604fa55f8e157abb96e4b04faf034c480c9739281e38fe0ffcedc4f7187274"));
+        assert(hashGenesisBlock == uint256("0x00000a58e5398af40ee5185b2c8580670e8729d25113b5ee73605113edea4d89"));
+        assert(genesis.hashMerkleRoot == uint256("0x8a47a4df11f769095679d2b7dbe0dadd00707e27c789ac9db390f0694e8f91d5"));
 
         vSeeds.push_back(CDNSSeedData("dnsseed1", "37.1.221.94"));
         //vSeeds.clear();
@@ -300,7 +300,7 @@ public:
         genesis.nTime = 1545075106;
         genesis.nNonce = 4455501;
 
-        /*
+
         std::cout << "testNet" << std::endl;
         while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
             genesis.nNonce ++;
@@ -310,7 +310,7 @@ public:
         std::cout << genesis.nNonce << std::endl;
         std::cout << genesis.GetHash().GetHex() << std::endl;
         std::cout << genesis.hashMerkleRoot.GetHex() << std::endl;
-        */
+        
         assert(hashGenesisBlock == uint256("0x0000068c2bcf20eae16eb26e11c92a4b1c8b4302df22340eff568ea6fc546bcc"));
 
         //vSeeds.push_back(CDNSSeedData("dnsseed1", ""));
