@@ -37,12 +37,12 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     if (pindexLast->nHeight > Params().LAST_POW_BLOCK()) {
         uint256 bnTargetLimit = (~uint256(0) >> 24);
         int64_t nTargetSpacing = 60 * 2;
-		
+
         // For accepting blocks < 3500
 		if (BlockLastSolved->nHeight < 3501) {
 			nTargetSpacing = 60;
 		}
-		
+
         int64_t nTargetTimespan = 60 * 40;
 
         int64_t nActualSpacing = 0;
@@ -55,11 +55,6 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         // ppcoin: target change every block
         // ppcoin: retarget with exponential moving toward target spacing
         uint256 bnNew;
-	if(pindexLast->nHeight >= Params().LAST_POW_BLOCK() && pindexLast->nHeight <= Params().LAST_POW_BLOCK() + 2) {
-		LogPrintf("DarkGravityWave: drop difficulty in PoS start\n");
-		uint256 bnTargetZero = (~uint256(0) >> 4);
-		bnNew = bnTargetZero;
-	} else
         bnNew.SetCompact(pindexLast->nBits);
 
         int64_t nInterval = nTargetTimespan / nTargetSpacing;
