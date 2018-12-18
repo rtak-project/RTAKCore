@@ -74,10 +74,10 @@ bool CheckProof(uint256 hash, unsigned int nBits)
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x000005a323fa7356164266bf9706fea579947a0fef4b8a5b8e9f7ccd0f619741"));
+    (0, uint256("0x001"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1545075106, // * UNIX timestamp of last checkpoint block
+    1545158624, // * UNIX timestamp of last checkpoint block
     0,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     100        // * estimated number of transactions per day after checkpoint
@@ -87,7 +87,7 @@ static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
     boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1545075106,
+    1545158624,
     0,
     250};
 
@@ -95,7 +95,7 @@ static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
     boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataRegtest = {
     &mapCheckpointsRegtest,
-    1545075106,
+    1545158624,
     0,
     100};
 
@@ -173,7 +173,7 @@ public:
          *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
          *   vMerkleTree: e0028e
          */
-        const char* pszTimestamp = "Former Mt. Gox CEO Could Face 10 Years in Jail Over Embezzlement / BTC Price: 3.492 USD";
+        const char* pszTimestamp = "Beta Former Mt. Gox CEO Could Face 10 Years in Jail Over Embezzlement / BTC Price: 3.492 USD";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -184,9 +184,21 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1545075106;
+        genesis.nTime = 1545158624;
         genesis.nBits = 0x1e0ffff0;
         genesis.nNonce = 1606092;
+
+
+        std::cout << "mainNet" << std::endl;
+        while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
+            genesis.nNonce ++;
+        }
+
+
+        std::cout << genesis.nNonce << std::endl;
+        std::cout << genesis.GetHash().GetHex() << std::endl;
+        std::cout << genesis.hashMerkleRoot.GetHex() << std::endl;
+
 
         hashGenesisBlock = genesis.GetHash();
 
@@ -288,15 +300,17 @@ public:
         genesis.nTime = 1545075106;
         genesis.nNonce = 4455501;
 
+        /*
+        std::cout << "testNet" << std::endl;
         while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
             genesis.nNonce ++;
         }
 
-        std::cout << "testNet" << std::endl;
+
         std::cout << genesis.nNonce << std::endl;
         std::cout << genesis.GetHash().GetHex() << std::endl;
         std::cout << genesis.hashMerkleRoot.GetHex() << std::endl;
-
+        */
         assert(hashGenesisBlock == uint256("0x0000068c2bcf20eae16eb26e11c92a4b1c8b4302df22340eff568ea6fc546bcc"));
 
         //vSeeds.push_back(CDNSSeedData("dnsseed1", ""));
