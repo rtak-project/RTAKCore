@@ -301,7 +301,7 @@ public:
         genesis.nNonce = 5315711;
 
 
-        assert(hashGenesisBlock == uint256("0x00000b39cdae9b89ae799e47731c6348c3e097bc22fa7b52b8b546459a1e5a01"));
+        //assert(hashGenesisBlock == uint256("0x00000b39cdae9b89ae799e47731c6348c3e097bc22fa7b52b8b546459a1e5a01"));
 
         //vSeeds.push_back(CDNSSeedData("dnsseed1", ""));
         vSeeds.clear();
@@ -365,19 +365,9 @@ public:
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 12345;
 
-        std::cout << "RegNet" << std::endl;
-        while (!CheckProof(genesis.GetHash(), genesis.nBits)) {
-            genesis.nNonce ++;
-        }
-
-
-        std::cout << genesis.nNonce << std::endl;
-        std::cout << genesis.GetHash().GetHex() << std::endl;
-        std::cout << genesis.hashMerkleRoot.GetHex() << std::endl;
-        hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 50333;
 
-        assert(hashGenesisBlock == uint256("0x1450054c37aba849f7ba2bc145c92afb878a32997f950e170f03f37efbea101c"));
+        //assert(hashGenesisBlock == uint256("0x1450054c37aba849f7ba2bc145c92afb878a32997f950e170f03f37efbea101c"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
