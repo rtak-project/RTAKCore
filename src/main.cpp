@@ -1822,11 +1822,9 @@ int64_t GetBlockValue(int nHeight)
 
     if (nHeight == 0) {
       nSubsidy = 120000 * COIN;
-    } else if (nHeight > 0 && nHeight < 50) {
+    } else if (nHeight > 0 && nHeight < 4000) {
       nSubsidy = 10 * CENT;
-    } else if (nHeight >= 50 && nHeight < 100) {
-      nSubsidy = 10 * CENT;
-  	} else if (nHeight >= 101 && nHeight < 20000) {
+  	} else if (nHeight >= 4001 && nHeight < 20000) {
       nSubsidy = 200 * CENT;
     } else if (nHeight >= 20001 && nHeight < 40000) {
       nSubsidy = 150 * CENT;
@@ -1850,7 +1848,7 @@ int64_t GetDevFee(int nHeight)
 {
     int64_t ret = 0;
 
-    if (nHeight > 40000) {
+    if (nHeight >= 40001) {
       ret = 15 * CENT;
     }
 
@@ -1874,21 +1872,19 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 {
     int64_t ret = 0;
 
-    if (nHeight > 0 && nHeight < 50) {
+    if (nHeight > 0 && nHeight < 4000) {
         ret = 40 * CENT;
-    } else if (nHeight > 50 && nHeight < 100) {
-        ret = 50 * CENT;
-	  } else if (nHeight > 101 && nHeight < 20000) {
+	  } else if (nHeight >= 4001 && nHeight < 20000) {
         ret = 880 * CENT;
-    } else if (nHeight > 20001 && nHeight < 40000) {
+    } else if (nHeight >= 20001 && nHeight < 40000) {
         ret = 720 * CENT;
-    } else if (nHeight > 40001 && nHeight < 100000) {
+    } else if (nHeight >= 40001 && nHeight < 100000) {
         ret = 600 * CENT;
-    } else if (nHeight > 100001 && nHeight < 200000) {
+    } else if (nHeight >= 100001 && nHeight < 200000) {
         ret = 450 * CENT;
-	  } else if (nHeight > 200001 && nHeight < 500000) {
+	  } else if (nHeight >= 200001 && nHeight < 500000) {
         ret = 300 * CENT;
-    } else if (nHeight > 500001) {
+    } else if (nHeight >= 500001) {
         ret = 200 * CENT;
     }
 
@@ -2872,10 +2868,12 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs - 1), nTimeConnect * 0.000001);
 
     //PoW phase redistributed fees to miner. PoS stage destroys fees.
-    CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight) + GetMasternodePayment(pindex->pprev->nHeight, 0, 0, true) + GetDevFee(pindex->pprev->nHeight);
+    CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight) +
+GetMasternodePayment(pindex->pprev->nHeight, 0, 0, true) +
+GetDevFee(pindex->pprev->nHeight);
     if (block.IsProofOfWork() && nFees > 0)
         nExpectedMint += nFees;
-	  //LogPrint(" >> ConnectBlock(): minted=%s limit=%s", FormatMoney(pindex->nMint), FormatMoney(nExpectedMint));
+	//LogPrint(" >> ConnectBlock(): minted=%s limit=%s", FormatMoney(pindex->nMint), FormatMoney(nExpectedMint));
     //Check that the block does not overmint
     if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint)) {
         return state.DoS(100, error("ConnectBlock() : reward pays too much (actual=%s vs limit=%s)",
