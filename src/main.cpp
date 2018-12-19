@@ -2869,8 +2869,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     //PoW phase redistributed fees to miner. PoS stage destroys fees.
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight + 1) +
-GetMasternodePayment(pindex->pprev->nHeight, 0, 0, true) +
-GetDevFee(pindex->pprev->nHeight);
+GetMasternodePayment(pindex->pprev->nHeight + 1, 0, 0, true) +
+GetDevFee(pindex->pprev->nHeight + 1);
     if (block.IsProofOfWork() && nFees > 0)
         nExpectedMint += nFees;
 	//LogPrint(" >> ConnectBlock(): minted=%s limit=%s", FormatMoney(pindex->nMint), FormatMoney(nExpectedMint));
