@@ -2875,7 +2875,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight) + GetMasternodePayment(pindex->pprev->nHeight, 0, 0, true) + GetDevFee(pindex->pprev->nHeight);
     if (block.IsProofOfWork() && nFees > 0)
         nExpectedMint += nFees;
-	      LogPrint(" >> ConnectBlock(): minted=%s limit=%s", FormatMoney(pindex->nMint), FormatMoney(nExpectedMint));
+	  //LogPrint(" >> ConnectBlock(): minted=%s limit=%s", FormatMoney(pindex->nMint), FormatMoney(nExpectedMint));
     //Check that the block does not overmint
     if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint)) {
         return state.DoS(100, error("ConnectBlock() : reward pays too much (actual=%s vs limit=%s)",
